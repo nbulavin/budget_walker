@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 RSpec.describe Types::QueryType, type: :request do
   describe 'me' do
-    subject { -> { post '/graphql', params: { query: query }, headers: headers } }
+    subject(:graphql_test_request) { -> { post '/graphql', params: { query: query }, headers: headers } }
 
-    let!(:user) {
+    let!(:user) do
       create :user, first_name: 'First name',
-                    last_name: 'Last name',
                     email: 'Test@gmail.com',
                     authorization_token: 'test'
-    }
+    end
 
     let(:query) do
       %(query {
@@ -24,20 +25,20 @@ RSpec.describe Types::QueryType, type: :request do
 
       context 'when token exists' do
         let(:authorization_header) { 'test' }
-        let(:expected_user_info) {
+        let(:expected_user_info) do
           {
-            "data" => {
-              "me" => {
-                "firstName" => "First name",
-                "email" => "Test@gmail.com",
-                "authorizationToken" => "test"
+            'data' => {
+              'me' => {
+                'firstName' => 'First name',
+                'email' => 'Test@gmail.com',
+                'authorizationToken' => 'test'
               }
             }
           }
-        }
+        end
 
         it 'returns correct info' do
-          subject.call
+          graphql_test_request.call
           expect(response).to be_successful
           expect(response_json).to match(expected_user_info)
         end
@@ -45,16 +46,16 @@ RSpec.describe Types::QueryType, type: :request do
 
       context 'when token does no exist' do
         let(:authorization_header) { 'test2' }
-        let(:expected_user_info) {
+        let(:expected_user_info) do
           {
             'data' => {
-              "me" => nil
+              'me' => nil
             }
           }
-        }
+        end
 
         it 'returns correct info' do
-          subject.call
+          graphql_test_request.call
           expect(response).to be_successful
           expect(response_json).to match(expected_user_info)
         end
@@ -63,20 +64,19 @@ RSpec.describe Types::QueryType, type: :request do
 
     context 'when authorization token not provided' do
       let(:headers) { {} }
-      let(:expected_user_info) {
+      let(:expected_user_info) do
         {
           'data' => {
-            "me" => nil
+            'me' => nil
           }
         }
-      }
+      end
 
       it 'returns correct info' do
-        subject.call
+        graphql_test_request.call
         expect(response).to be_successful
         expect(response_json).to match(expected_user_info)
       end
     end
-
   end
 end
