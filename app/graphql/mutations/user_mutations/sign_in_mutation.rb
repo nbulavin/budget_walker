@@ -10,6 +10,7 @@ module Mutations
 
       field :me, Types::UserType, null: true
       field :errors, [String], null: false
+      field :token, String, null: true
 
       def resolve(email:, password:)
         UserServices::Authorization::SignInPerformer.new(email: email, password: password).call

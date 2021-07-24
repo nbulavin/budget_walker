@@ -15,6 +15,7 @@ module UserServices
       # @example
       #   {
       #     me: <User>, # User object
+      #     token: 'test',
       #     errors: []
       #   }
       def call
@@ -24,7 +25,8 @@ module UserServices
 
         {
           errors: @errors,
-          me: @errors.empty? ? @user : nil
+          me: @errors.empty? ? @user : nil,
+          token: @errors.empty? ? @user.authorization_token : nil
         }
       end
 

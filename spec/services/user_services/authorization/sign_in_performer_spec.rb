@@ -25,6 +25,7 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
           let(:expected_hash) do
             {
               me: user,
+              token: user.authorization_token,
               errors: []
             }
           end
@@ -44,6 +45,7 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
           let(:expected_hash) do
             {
               me: user,
+              token: 'test2test',
               errors: []
             }
           end
@@ -72,6 +74,7 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
         let(:expected_hash) do
           {
             me: nil,
+            token: nil,
             errors: ['Oops, unable to log in']
           }
         end
@@ -97,6 +100,7 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
       let(:expected_hash) do
         {
           me: nil,
+          token: nil,
           errors: ['Oops, unable to log in']
         }
       end

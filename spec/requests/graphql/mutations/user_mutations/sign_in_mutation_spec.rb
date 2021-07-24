@@ -20,10 +20,10 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
               password: "Password"
             ) {
               errors
+              token
               me {
                 firstName
                 email
-                authorizationToken
               }
             }
           }
@@ -32,8 +32,8 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
       let(:expected_response) do
         {
           'errors' => [],
+          'token' => 'test',
           'me' => {
-            'authorizationToken' => 'test',
             'email' => 'test@email.com',
             'firstName' => 'FirstName'
           }
@@ -56,10 +56,10 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
               password: "test"
             ) {
               errors
+              token
               me {
                 firstName
                 email
-                authorizationToken
               }
             }
           }
@@ -68,7 +68,8 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
       let(:expected_response) do
         {
           'errors' => ['Oops, unable to log in'],
-          'me' => nil
+          'me' => nil,
+          'token' => nil
         }
       end
 
@@ -88,10 +89,10 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
             email: "test@email.com"
           ) {
             errors
+            token
             me {
               firstName
               email
-              authorizationToken
             }
           }
         }
@@ -136,10 +137,10 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
         mutation SignMeIn {
           signIn {
             errors
+            token
             me {
               firstName
               email
-              authorizationToken
             }
           }
         }
