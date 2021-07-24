@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Types::QueryType, type: :request do
+RSpec.describe Queries::UserQueries::Me, type: :request do
   describe 'me' do
     subject(:graphql_test_request) { -> { post '/graphql', params: { query: query }, headers: headers } }
 
