@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
-def response_json
-  JSON.parse(response.body)
+module Support
+  module RequestHelper
+    def response_json
+      JSON.parse(response.body)
+    end
+  end
 end
