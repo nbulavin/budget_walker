@@ -10,5 +10,4 @@ class BudgetWalkerSchema < GraphQL::Schema
     # to return the correct object type for `obj`
     raise(GraphQL::RequiredImplementationMissingError)
   end
-
 end

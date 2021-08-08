@@ -13,7 +13,7 @@ RSpec/NestedGroups:
   Enabled: false
 
 RSpec/MultipleExpectations:
-  Max: 3
+  Max: 5
 
 RSpec/LetSetup:
   Enabled: false
