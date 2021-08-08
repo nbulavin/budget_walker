@@ -17,7 +17,7 @@ module UserInteractors
           generate_auth_token(user)
           context.token = user.authorization_token
         else
-          context.fail!(errors: ['Oops, unable to log in']) unless user
+          context.fail!(errors: [error_text])
         end
       end
 
@@ -32,6 +32,10 @@ module UserInteractors
         return if user.authorization_token
 
         user.update!(authorization_token: ::SecureRandom.uuid)
+      end
+
+      def error_text
+        I18n.t('interactors.user_interactors.authorization.sign_in_performer.errors.main_error')
       end
     end
   end

@@ -67,7 +67,7 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
       end
       let(:expected_response) do
         {
-          'errors' => ['Oops, unable to log in'],
+          'errors' => ['Упс! Проверьте email и пароль и попробуйте снова.'],
           'me' => nil,
           'token' => nil
         }

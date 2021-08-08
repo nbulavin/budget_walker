@@ -92,7 +92,7 @@ RSpec.describe UserInteractors::Authorization::SignInPerformer do
           expect(result.success?).to eq(false)
           expect(result.me).to be_nil
           expect(result.token).to be_nil
-          expect(result.errors).to eq(['Oops, unable to log in'])
+          expect(result.errors).to eq(['Упс! Проверьте email и пароль и попробуйте снова.'])
         end
 
         it 'does not update auth token' do
@@ -122,7 +122,7 @@ RSpec.describe UserInteractors::Authorization::SignInPerformer do
         expect(result.success?).to eq(false)
         expect(result.me).to be_nil
         expect(result.token).to be_nil
-        expect(result.errors).to eq(['Oops, unable to log in'])
+        expect(result.errors).to eq(['Упс! Проверьте email и пароль и попробуйте снова.'])
       end
 
       it 'does not update auth token' do

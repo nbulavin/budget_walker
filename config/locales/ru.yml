@@ -29,11 +29,11 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
+ru:
   hello: "Hello world"
   interactors:
     user_interactors:
       authorization:
         sign_in_performer:
           errors:
-            main_error: Oops, unable to log in
+            main_error: Упс! Проверьте email и пароль и попробуйте снова.
