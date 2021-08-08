@@ -13,7 +13,13 @@ module Mutations
       field :token, String, null: true
 
       def resolve(email:, password:)
-        UserServices::Authorization::SignInPerformer.new(email: email, password: password).call
+        result = UserInteractors::Authorization::SignInPerformer.call(email: email, password: password)
+
+        {
+          errors: result.errors,
+          me: result.me,
+          token: result.token
+        }
       end
     end
   end

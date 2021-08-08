@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe UserServices::Authorization::SignInPerformer do
+RSpec.describe UserInteractors::Authorization::SignInPerformer do
   describe '#call' do
-    subject(:sign_in_service) { -> { described_class.new(**params).call } }
+    subject(:sign_in_service) { -> { described_class.call(**params) } }
 
     let!(:user) do
       create :user, email: 'test@email.com',
@@ -31,7 +31,11 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
           end
 
           it 'returns correct info' do
-            expect(sign_in_service.call).to match(expected_hash)
+            result = sign_in_service.call
+            expect(result.success?).to eq(true)
+            expect(result.me).to eq(user)
+            expect(result.token).to eq(user.reload.authorization_token)
+            expect(result.errors).to eq([])
           end
 
           it 'does not update auth token' do
@@ -53,7 +57,11 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
           before { allow(SecureRandom).to receive(:uuid).and_return('test2test') }
 
           it 'returns correct info' do
-            expect(sign_in_service.call).to match(expected_hash)
+            result = sign_in_service.call
+            expect(result.success?).to eq(true)
+            expect(result.me).to eq(user)
+            expect(result.token).to eq(user.reload.authorization_token)
+            expect(result.errors).to eq([])
           end
 
           it 'does not update auth token' do
@@ -80,7 +88,11 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
         end
 
         it 'returns correct info' do
-          expect(sign_in_service.call).to match(expected_hash)
+          result = sign_in_service.call
+          expect(result.success?).to eq(false)
+          expect(result.me).to be_nil
+          expect(result.token).to be_nil
+          expect(result.errors).to eq(['Oops, unable to log in'])
         end
 
         it 'does not update auth token' do
@@ -106,7 +118,11 @@ RSpec.describe UserServices::Authorization::SignInPerformer do
       end
 
       it 'returns correct info' do
-        expect(sign_in_service.call).to match(expected_hash)
+        result = sign_in_service.call
+        expect(result.success?).to eq(false)
+        expect(result.me).to be_nil
+        expect(result.token).to be_nil
+        expect(result.errors).to eq(['Oops, unable to log in'])
       end
 
       it 'does not update auth token' do
