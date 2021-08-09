@@ -30,10 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ru:
-  hello: "Hello world"
+  graphql:
+    common:
+      errors:
+        not_authorized: Вы не авторизованы
   interactors:
     user_interactors:
       authorization:
         sign_in_performer:
           errors:
-            main_error: Упс! Проверьте email и пароль и попробуйте снова.
+          main_error: Упс! Проверьте email и пароль и попробуйте снова.

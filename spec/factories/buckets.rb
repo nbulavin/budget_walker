@@ -5,15 +5,15 @@ FactoryBot.define do
     name { 'First Bucket' }
 
     trait :credit_card do
-      type { :credit_card }
+      bucket_type { :credit_card }
     end
 
     trait :account do
-      type { :account }
+      bucket_type { :account }
     end
 
     trait :saving do
-      type { :saving }
+      bucket_type { :saving }
     end
   end
 end

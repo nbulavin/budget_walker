@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_08_174752) do
+ActiveRecord::Schema.define(version: 2021_08_09_170812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2021_08_08_174752) do
   create_table "buckets", force: :cascade do |t|
     t.string "name", null: false
     t.integer "expected_enrollment"
-    t.integer "type", default: 0, null: false
+    t.integer "bucket_type", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
