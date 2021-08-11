@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_170812) do
+ActiveRecord::Schema.define(version: 2021_08_11_163858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -36,6 +36,15 @@ ActiveRecord::Schema.define(version: 2021_08_09_170812) do
     t.index ["user_id"], name: "index_expense_categories_on_user_id"
   end
 
+  create_table "savings", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id"
+    t.integer "sort_order", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_savings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", null: false
     t.string "last_name"
@@ -48,4 +57,5 @@ ActiveRecord::Schema.define(version: 2021_08_09_170812) do
 
   add_foreign_key "buckets", "users"
   add_foreign_key "expense_categories", "users"
+  add_foreign_key "savings", "users"
 end
