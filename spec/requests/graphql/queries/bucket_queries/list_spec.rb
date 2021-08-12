@@ -25,7 +25,6 @@ RSpec.describe Queries::BucketQueries::List, type: :request do
       end
       let(:headers) { { 'Authorization' => user.authorization_token } }
 
-
       context 'with buckets in database' do
         let!(:first_bucket) { create :bucket, bucket_type: 0, user: user }
         let(:expected_buckets_list) do
@@ -70,7 +69,6 @@ RSpec.describe Queries::BucketQueries::List, type: :request do
           expect(response_json).to match(expected_buckets_list)
         end
       end
-
     end
 
     context 'with not logged in user' do

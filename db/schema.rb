@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_163858) do
+ActiveRecord::Schema.define(version: 2021_08_12_170741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -33,7 +33,20 @@ ActiveRecord::Schema.define(version: 2021_08_11_163858) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.bigint "bucket_id"
+    t.index ["bucket_id"], name: "index_expense_categories_on_bucket_id"
     t.index ["user_id"], name: "index_expense_categories_on_user_id"
+  end
+
+  create_table "income_categories", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.integer "expected_revenue"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "bucket_id"
+    t.index ["bucket_id"], name: "index_income_categories_on_bucket_id"
+    t.index ["user_id"], name: "index_income_categories_on_user_id"
   end
 
   create_table "savings", force: :cascade do |t|
@@ -42,6 +55,8 @@ ActiveRecord::Schema.define(version: 2021_08_11_163858) do
     t.integer "sort_order", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "goal"
+    t.integer "expected_enrollment"
     t.index ["user_id"], name: "index_savings_on_user_id"
   end
 
@@ -56,6 +71,9 @@ ActiveRecord::Schema.define(version: 2021_08_11_163858) do
   end
 
   add_foreign_key "buckets", "users"
+  add_foreign_key "expense_categories", "buckets"
   add_foreign_key "expense_categories", "users"
+  add_foreign_key "income_categories", "buckets"
+  add_foreign_key "income_categories", "users"
   add_foreign_key "savings", "users"
 end
