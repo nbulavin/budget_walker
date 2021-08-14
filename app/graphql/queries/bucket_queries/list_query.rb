@@ -2,7 +2,7 @@
 
 module Queries
   module BucketQueries
-    class List < Queries::BaseQuery
+    class ListQuery < Queries::BaseQuery
       description 'Returns list of buckets available for user'
 
       type Types::BucketsListType, null: true
@@ -14,7 +14,7 @@ module Queries
 
         {
           list: current_user.buckets,
-          count: current_user.buckets.count
+          total_count: current_user.buckets.count
         }
       end
     end

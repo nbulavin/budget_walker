@@ -2,7 +2,7 @@
 
 module Queries
   module UserQueries
-    class Me < Queries::BaseQuery
+    class MeQuery < Queries::BaseQuery
       description 'Returns current user info'
 
       type Types::UserType, null: true

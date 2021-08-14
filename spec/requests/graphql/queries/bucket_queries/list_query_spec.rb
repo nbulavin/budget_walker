@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Queries::BucketQueries::List, type: :request do
+RSpec.describe Queries::BucketQueries::ListQuery, type: :request do
   describe 'me' do
     subject(:graphql_test_request) { -> { post '/graphql', params: { query: query }, headers: headers } }
 
@@ -12,7 +12,7 @@ RSpec.describe Queries::BucketQueries::List, type: :request do
             name
             bucketType
           }
-          count
+          totalCount
         }
       })
     end
@@ -31,7 +31,7 @@ RSpec.describe Queries::BucketQueries::List, type: :request do
           {
             'data' => {
               'getBucketsList' => {
-                'count' => 1,
+                'totalCount' => 1,
                 'list' => [
                   {
                     'bucketType' => 0,
@@ -56,7 +56,7 @@ RSpec.describe Queries::BucketQueries::List, type: :request do
           {
             'data' => {
               'getBucketsList' => {
-                'count' => 0,
+                'totalCount' => 0,
                 'list' => []
               }
             }

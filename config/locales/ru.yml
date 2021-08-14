@@ -39,4 +39,4 @@ ru:
       authorization:
         sign_in_performer:
           errors:
-          main_error: Упс! Проверьте email и пароль и попробуйте снова.
+            main_error: Упс! Проверьте email и пароль и попробуйте снова.
