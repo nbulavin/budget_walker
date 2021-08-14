@@ -23,3 +23,6 @@ Style/Documentation:
 
 RSpec/MultipleMemoizedHelpers:
   Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented_relative_to_receiver

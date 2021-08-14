@@ -11,13 +11,15 @@ RSpec.describe Queries::UserQueries::MeQuery, type: :request do
     end
 
     let(:query) do
-      %(query {
-        me {
-          firstName
-          email
-          authorizationToken
+      <<~GQL
+        query {
+          me {
+            firstName
+            email
+            authorizationToken
+          }
         }
-      })
+      GQL
     end
 
     context 'when authorization token provided' do

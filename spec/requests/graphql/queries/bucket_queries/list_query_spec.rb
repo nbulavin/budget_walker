@@ -5,16 +5,19 @@ RSpec.describe Queries::BucketQueries::ListQuery, type: :request do
     subject(:graphql_test_request) { -> { post '/graphql', params: { query: query }, headers: headers } }
 
     let(:query) do
-      %(query {
-        getBucketsList {
-          list {
-            id
-            name
-            bucketType
+      <<~GQL
+        query {
+          getBucketsList {
+            list {
+              id
+              name
+              bucketType
+            }
+            totalCount
           }
-          totalCount
         }
-      })
+      GQL
+
     end
 
     context 'with logged in user' do
@@ -34,7 +37,7 @@ RSpec.describe Queries::BucketQueries::ListQuery, type: :request do
                 'totalCount' => 1,
                 'list' => [
                   {
-                    'bucketType' => 0,
+                    'bucketType' => 'credit_card',
                     'id' => first_bucket.id,
                     'name' => 'First Bucket'
                   }
@@ -83,8 +86,8 @@ RSpec.describe Queries::BucketQueries::ListQuery, type: :request do
               'message' => 'Вы не авторизованы',
               'locations' => [
                 {
-                  'line' => 2,
-                  'column' => 9
+                  'line' => be,
+                  'column' => be
                 }
               ],
               'path' => [

@@ -7,12 +7,10 @@ module Queries
 
       argument :id, Integer, required: true
 
-      type Types::BucketType, null: true
+      type Types::Bucket::ObjectType, null: true
 
       def resolve(id:)
-        current_user = context[:current_user]
-
-        raise GraphQL::ExecutionError, I18n.t('graphql.common.errors.not_authorized') unless current_user
+        raise_unauthorized_error unless authorized_user?
 
         current_user.buckets.find(id)
       rescue ActiveRecord::RecordNotFound

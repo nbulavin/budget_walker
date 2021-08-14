@@ -5,15 +5,17 @@ RSpec.describe Queries::BucketQueries::ShowQuery, type: :request do
     subject(:graphql_test_request) { -> { post '/graphql', params: { query: query }, headers: headers } }
 
     let(:query) do
-      %(query {
-        getBucketDetails(
-          id: #{bucket_id}
-        ) {
-          id
-          name
-          bucketType
+      <<~GQL
+        query {
+          getBucketDetails(
+            id: #{bucket_id}
+          ) {
+            id
+            name
+            bucketType
+          }
         }
-      })
+      GQL
     end
 
     context 'with logged in user' do
@@ -31,7 +33,7 @@ RSpec.describe Queries::BucketQueries::ShowQuery, type: :request do
           {
             'data' => {
               'getBucketDetails' => {
-                'bucketType' => 0,
+                'bucketType' => 'credit_card',
                 'id' => first_bucket.id,
                 'name' => 'First Bucket'
               }
@@ -57,8 +59,8 @@ RSpec.describe Queries::BucketQueries::ShowQuery, type: :request do
               {
                 'locations' => [
                   {
-                    'column' => 9,
-                    'line' => 2
+                    'column' => be,
+                    'line' => be
                   }
                 ],
                 'message' => 'Упс! Мы не нашли то, что вы искали. Проверьте правильность и повторите запрос',
@@ -91,8 +93,8 @@ RSpec.describe Queries::BucketQueries::ShowQuery, type: :request do
               'message' => 'Вы не авторизованы',
               'locations' => [
                 {
-                  'line' => 2,
-                  'column' => 9
+                  'line' => be,
+                  'column' => be
                 }
               ],
               'path' => [
