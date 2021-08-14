@@ -7,5 +7,6 @@ module Types
 
     field :me, resolver: Queries::UserQueries::MeQuery
     field :get_buckets_list, resolver: Queries::BucketQueries::ListQuery
+    field :get_bucket_details, resolver: Queries::BucketQueries::ShowQuery
   end
 end

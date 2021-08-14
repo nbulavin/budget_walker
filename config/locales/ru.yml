@@ -34,6 +34,7 @@ ru:
     common:
       errors:
         not_authorized: Вы не авторизованы
+        record_not_found: Упс! Мы не нашли то, что вы искали. Проверьте правильность и повторите запрос
   interactors:
     user_interactors:
       authorization:

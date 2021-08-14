@@ -34,9 +34,10 @@ en:
     common:
       errors:
         not_authorized: You are not authorized
+        record_not_found: Oops! We did not find what you were looking for. Check if request is correct and try again
   interactors:
     user_interactors:
       authorization:
         sign_in_performer:
           errors:
-            main_error: Oops, unable to log in
+            main_error: Oops! Check your email and password and try again.
