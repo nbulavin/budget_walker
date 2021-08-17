@@ -16,7 +16,7 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
             mutation {
               createBucket(
                 name: "#{name}"
-                type: #{type}
+                bucketType: #{type}
               ) {
                 bucket {
                   id
@@ -67,7 +67,7 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
         mutation {
           createBucket(
             name: "test"
-            type: credit_card
+            bucketType: credit_card
           ) {
             bucket {
               id

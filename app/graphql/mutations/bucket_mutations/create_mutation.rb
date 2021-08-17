@@ -6,23 +6,34 @@ module Mutations
       null true
 
       argument :name, String, required: true
-      argument :type, Types::Bucket::TypeEnum, required: true
+      argument :bucket_type, Types::Bucket::TypeEnum, required: true
       argument :expected_enrollment, String, required: false
 
       field :bucket, Types::Bucket::ObjectType, null: true
       field :errors, [String], null: true
 
-      def resolve(name:, type:, expected_enrollment: nil)
+      def resolve(**args)
         raise_unauthorized_error unless authorized_user?
 
-        result = BucketInteractors::CreationPerformer
-                   .call(name: name, type: type, expected_enrollment: expected_enrollment, creator: current_user)
+        result = BucketInteractors::CreationPerformer.call(payload: prepare_arguments(args))
 
         {
           errors: result.errors,
           bucket: result.bucket
         }
       end
+
+      private
+
+      def prepare_arguments(args)
+        arguments = {}
+        arguments[:name] = args[:name] if args.key?(:name)
+        arguments[:bucket_type] = args[:bucket_type] if args.key?(:bucket_type)
+        arguments[:expected_enrollment] = args[:expected_enrollment] if args.key?(:expected_enrollment)
+        arguments[:user] = current_user
+        arguments
+      end
+
     end
   end
 end

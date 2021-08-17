@@ -2,17 +2,17 @@
 
 RSpec.describe BucketInteractors::CreationPerformer do
   describe '#call' do
-    subject(:bucket_creation_service) { -> { described_class.call(**params) } }
+    subject(:bucket_creation_service) { -> { described_class.call(payload: payload) } }
 
     let!(:user) { create :user }
 
     context 'when user provided' do
       context 'with valid params' do
-        let(:params) do
+        let(:payload) do
           {
-            creator: user,
+            user: user,
             name: 'New name for bucket',
-            type: 'credit_card'
+            bucket_type: 'credit_card'
           }
         end
         let(:expected_attributes) do
@@ -41,11 +41,11 @@ RSpec.describe BucketInteractors::CreationPerformer do
       end
 
       context 'with incorrect params' do
-        let(:params) do
+        let(:payload) do
           {
-            creator: user,
+            user: user,
             name: nil,
-            type: 'credit_card'
+            bucket_type: 'credit_card'
           }
         end
 
@@ -55,7 +55,7 @@ RSpec.describe BucketInteractors::CreationPerformer do
 
         it('returns correct info') do
           result = bucket_creation_service.call
-          expect(result.success?).to eq(true)
+          expect(result.success?).to eq(false)
           expect(result.bucket).to be_nil
           expect(result.errors).to eq(['Упс! Не удалось создать запись. Проверьте данные и попробуйте снова.'])
         end
