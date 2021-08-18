@@ -30,6 +30,27 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ru:
+  dry_validation:
+    rules:
+      bucket_type: Тип счета
+      expected_enrollment: Ожидаемое зачисление
+      name: Название
+      user: Пользователь
+    errors:
+      bucket_validation:
+        rules:
+          bucket_type:
+            included_in?: "должен иметь одно из значений: credit_card, account, cash"
+            key?: отсутствует
+          expected_enrollment:
+            date_time?: должно содержать время
+          name:
+            filled?: должно быть заполнено
+            key?: отсутствует
+          user:
+            filled?: должен быть заполнен
+            type?: должен быть типом User
+            key?: отсутствует
   graphql:
     common:
       errors:
