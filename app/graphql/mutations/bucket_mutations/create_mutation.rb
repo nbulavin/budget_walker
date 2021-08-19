@@ -33,7 +33,6 @@ module Mutations
         arguments[:user] = current_user
         arguments
       end
-
     end
   end
 end

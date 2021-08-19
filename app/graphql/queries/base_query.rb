@@ -2,7 +2,6 @@
 
 module Queries
   class BaseQuery < GraphQL::Schema::Resolver
-
     private
 
     def current_user

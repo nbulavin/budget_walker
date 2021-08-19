@@ -17,7 +17,6 @@ RSpec.describe Queries::BucketQueries::ListQuery, type: :request do
           }
         }
       GQL
-
     end
 
     context 'with logged in user' do
