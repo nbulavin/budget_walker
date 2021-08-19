@@ -2,34 +2,38 @@
 
 module BucketInteractors
   class CreationPerformer
-    class MissingUserError < StandardError
+    class InvalidPayloadError < StandardError
     end
 
     include Interactor
 
     before do
-      context.user = context.payload[:user]
-      context.errors = []
+      context.errors = {}
     end
 
     def call
-      raise MissingUserError unless context.user
+      result = prepare_payload
+      raise InvalidPayloadError unless result.success?
 
-      context.bucket = create_bucket
-    rescue MissingUserError
-      add_error('Вы не авторизованы')
+      context.bucket = create_bucket(result.to_h)
+    rescue InvalidPayloadError
+      add_error(result.errors.to_h)
     rescue StandardError
-      add_error(I18n.t('interactors.bucket_interactors.creation_performer.errors.main_error'))
+      add_error({ common: I18n.t('interactors.bucket_interactors.creation_performer.errors.main_error') })
     end
 
     private
 
-    def create_bucket
-      Bucket.create!(context.payload)
+    def prepare_payload
+      BucketContracts::OnCreationContract.new.call(**context.payload)
     end
 
-    def add_error(text)
-      context.errors.push(text)
+    def create_bucket(formatted_payload)
+      Bucket.create!(formatted_payload)
+    end
+
+    def add_error(error_hash)
+      context.errors = error_hash
       context.fail!
     end
   end

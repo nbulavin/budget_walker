@@ -10,7 +10,7 @@ module Mutations
       argument :expected_enrollment, String, required: false
 
       field :bucket, Types::Bucket::ObjectType, null: true
-      field :errors, [String], null: true
+      field :errors, GraphQL::Types::JSON, null: true
 
       def resolve(**args)
         raise_unauthorized_error unless authorized_user?
@@ -18,7 +18,7 @@ module Mutations
         result = BucketInteractors::CreationPerformer.call(payload: prepare_arguments(args))
 
         {
-          errors: result.errors,
+          errors: formatted_json(result.errors),
           bucket: result.bucket
         }
       end

@@ -17,5 +17,9 @@ module Mutations
     def raise_unauthorized_error
       raise GraphQL::ExecutionError, I18n.t('graphql.common.errors.not_authorized')
     end
+
+    def formatted_json(errors)
+      errors.transform_keys { |key| key.to_s.camelcase(:lower) }.to_json
+    end
   end
 end

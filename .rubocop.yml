@@ -9,20 +9,19 @@ Metrics/BlockLength:
   Exclude:
     - ./spec/**/*
 
-RSpec/NestedGroups:
-  Enabled: false
-
-RSpec/MultipleExpectations:
-  Max: 5
-
-RSpec/LetSetup:
-  Enabled: false
-
 Style/Documentation:
-  Enabled: false
-
-RSpec/MultipleMemoizedHelpers:
   Enabled: false
 
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
+
+RSpec/LetSetup:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Max: 5
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/AnyInstance:
+  Enabled: false
