@@ -39,5 +39,7 @@ module BudgetWalker
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.time_zone = 'Europe/Samara'
+
+    config.i18n.fallbacks = %i[ru en]
   end
 end

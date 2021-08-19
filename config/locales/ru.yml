@@ -36,9 +36,13 @@ ru:
       expected_enrollment: Ожидаемое зачисление
       name: Название
       user: Пользователь
+      id: Айди
     errors:
       bucket_validation:
         rules:
+          id:
+            filled?: должен быть заполнен
+            key?: отсутствует
           bucket_type:
             included_in?: "должен иметь одно из значений: credit_card, account, cash"
             key?: отсутствует
@@ -61,6 +65,10 @@ ru:
       creation_performer:
         errors:
           main_error: Упс! Не удалось создать запись. Проверьте данные и попробуйте снова.
+      update_performer:
+        errors:
+          main_error: Упс! Не удалось обновить запись. Проверьте данные и попробуйте снова.
+          record_not_found: Упс! Запись не найдена. Проверьте данные и попробуйте снова.
     user_interactors:
       authorization:
         sign_in_performer:
