@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_170741) do
+ActiveRecord::Schema.define(version: 2021_08_23_173043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -23,6 +23,11 @@ ActiveRecord::Schema.define(version: 2021_08_12_170741) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.string "provider"
+    t.integer "sort_order", default: 0, null: false
+    t.integer "current_balance", default: 0, null: false
+    t.string "color"
+    t.string "description"
     t.index ["user_id"], name: "index_buckets_on_user_id"
   end
 
