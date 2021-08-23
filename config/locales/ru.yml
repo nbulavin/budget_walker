@@ -37,6 +37,9 @@ ru:
       name: Название
       user: Пользователь
       id: Айди
+      description: Описание
+      provider: Провайдер
+      color: Цвет
     errors:
       bucket_validation:
         rules:
@@ -55,6 +58,12 @@ ru:
             filled?: должен быть заполнен
             type?: должен быть типом User
             key?: отсутствует
+          description:
+            str?: должно быть текстом
+          provider:
+            str?: должен быть текстом
+          color:
+            str?: должен быть текстом
   graphql:
     common:
       errors:

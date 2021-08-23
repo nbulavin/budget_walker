@@ -36,7 +36,7 @@ module BucketInteractors
     end
 
     def update_bucket(bucket, formatted_payload)
-      result = bucket.update!(attributes_to_update(formatted_payload))
+      result = bucket.update!(formatted_payload.except(:user))
       return unless result
 
       bucket

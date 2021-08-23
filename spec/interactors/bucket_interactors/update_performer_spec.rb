@@ -17,7 +17,10 @@ RSpec.describe BucketInteractors::UpdatePerformer do
                 id: bucket.id,
                 user: user,
                 name: 'New name for bucket',
-                bucket_type: 'credit_card'
+                bucket_type: 'credit_card',
+                provider: 'test',
+                color: '#ffffff',
+                description: 'test description'
               }
             end
             let(:expected_attributes) do
@@ -28,7 +31,12 @@ RSpec.describe BucketInteractors::UpdatePerformer do
                 id: bucket.id,
                 name: 'New name for bucket',
                 updated_at: be,
-                user_id: user.id
+                user_id: user.id,
+                color: '#ffffff',
+                current_balance: 0,
+                description: 'test description',
+                provider: 'test',
+                sort_order: 0
               }.stringify_keys
             end
 

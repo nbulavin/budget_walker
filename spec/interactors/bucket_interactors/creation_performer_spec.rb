@@ -23,7 +23,12 @@ RSpec.describe BucketInteractors::CreationPerformer do
             id: be,
             name: 'New name for bucket',
             updated_at: be,
-            user_id: user.id
+            user_id: user.id,
+            color: nil,
+            current_balance: 0,
+            description: nil,
+            provider: nil,
+            sort_order: 0
           }.stringify_keys
         end
 

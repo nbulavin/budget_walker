@@ -8,6 +8,10 @@ module Mutations
       argument :name, String, required: true
       argument :bucket_type, Types::Bucket::TypeEnum, required: true
       argument :expected_enrollment, String, required: false
+      argument :provider, String, required: false
+      argument :sort_order, Integer, required: false
+      argument :color, String, required: false
+      argument :description, String, required: false
 
       field :bucket, Types::Bucket::ObjectType, null: true
       field :errors, GraphQL::Types::JSON, null: true
@@ -26,12 +30,8 @@ module Mutations
       private
 
       def prepare_arguments(args)
-        arguments = {}
-        arguments[:name] = args[:name] if args.key?(:name)
-        arguments[:bucket_type] = args[:bucket_type] if args.key?(:bucket_type)
-        arguments[:expected_enrollment] = args[:expected_enrollment] if args.key?(:expected_enrollment)
-        arguments[:user] = current_user
-        arguments
+        args[:user] = current_user
+        args
       end
     end
   end

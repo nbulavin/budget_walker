@@ -23,21 +23,47 @@ RSpec.describe BucketContracts::OnUpdateContract do
       end
 
       context 'with optional params' do
-        let(:params) do
-          {
-            id: 0,
-            name: 'test',
-            bucket_type: 'credit_card',
-            expected_enrollment: '2021-12-17',
-            user: user
+        context 'when filled in' do
+          let(:params) do
+            {
+              id: 0,
+              name: 'test',
+              bucket_type: 'credit_card',
+              expected_enrollment: '2021-12-17',
+              provider: 'test',
+              color: '#ffffff',
+              description: 'test description',
+              user: user
+            }
+          end
+
+          it {
+            result = create_bucket_contract.call
+            expect(result).to be_success
+            expect(result.errors).to be_empty
           }
         end
 
-        it {
-          result = create_bucket_contract.call
-          expect(result).to be_success
-          expect(result.errors).to be_empty
-        }
+        context 'when nil' do
+          let(:params) do
+            {
+              id: 0,
+              name: 'test',
+              bucket_type: 'credit_card',
+              expected_enrollment: nil,
+              provider: nil,
+              color: nil,
+              description: nil,
+              user: user
+            }
+          end
+
+          it {
+            result = create_bucket_contract.call
+            expect(result).to be_success
+            expect(result.errors).to be_empty
+          }
+        end
       end
     end
 
@@ -183,15 +209,16 @@ RSpec.describe BucketContracts::OnUpdateContract do
               .to eq({ expected_enrollment: ['Ожидаемое зачисление должно содержать время'] })
           }
         end
+      end
 
-        context 'when nil' do
+      context 'when provider' do
+        context 'when not in string format' do
           let(:params) do
             {
               id: 0,
-              name: 'test',
-              bucket_type: 'credit_card',
+              name: 'name',
               user: user,
-              expected_enrollment: nil
+              provider: []
             }
           end
 
@@ -199,7 +226,47 @@ RSpec.describe BucketContracts::OnUpdateContract do
             result = create_bucket_contract.call
             expect(result).not_to be_success
             expect(result.errors(full: true).to_h)
-              .to eq({ expected_enrollment: ['Ожидаемое зачисление должно содержать время'] })
+              .to eq({ provider: ['Провайдер должен быть текстом'] })
+          }
+        end
+      end
+
+      context 'when color' do
+        context 'when not in string format' do
+          let(:params) do
+            {
+              id: 0,
+              name: 'name',
+              user: user,
+              color: []
+            }
+          end
+
+          it {
+            result = create_bucket_contract.call
+            expect(result).not_to be_success
+            expect(result.errors(full: true).to_h)
+              .to eq({ color: ['Цвет должен быть текстом'] })
+          }
+        end
+      end
+
+      context 'when description' do
+        context 'when not in string format' do
+          let(:params) do
+            {
+              id: 0,
+              name: 'name',
+              user: user,
+              description: []
+            }
+          end
+
+          it {
+            result = create_bucket_contract.call
+            expect(result).not_to be_success
+            expect(result.errors(full: true).to_h)
+              .to eq({ description: ['Описание должно быть текстом'] })
           }
         end
       end

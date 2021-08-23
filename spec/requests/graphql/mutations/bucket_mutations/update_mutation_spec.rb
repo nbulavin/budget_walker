@@ -106,10 +106,148 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           expect(response_json).to match(expected_response)
         end
       end
+
+      context 'with provider' do
+        let(:mutation) do
+          <<~GQL
+            mutation {
+              updateBucket(
+                id: #{bucket.id}
+                provider: "test"
+              ) {
+                bucket {
+                  id
+                  name
+                  bucketType
+                  provider
+                }
+                errors
+              }
+            }
+          GQL
+        end
+        let(:expected_response) do
+          {
+            'data' => {
+              'updateBucket' => {
+                'bucket' => {
+                  'bucketType' => 'credit_card',
+                  'id' => bucket.id,
+                  'name' => 'First Bucket',
+                  'provider' => 'test'
+                },
+                'errors' => '{}'
+              }
+            }
+          }
+        end
+
+        it 'does not create bucket' do
+          expect { update_bucket_request.call }.to change { bucket.reload.provider }.to('test')
+        end
+
+        it 'returns correct info' do
+          update_bucket_request.call
+          expect(response).to be_successful
+          expect(response_json).to match(expected_response)
+        end
+      end
+
+      context 'with color' do
+        let(:mutation) do
+          <<~GQL
+            mutation {
+              updateBucket(
+                id: #{bucket.id}
+                color: "#ffffff"
+              ) {
+                bucket {
+                  id
+                  name
+                  bucketType
+                  color
+                }
+                errors
+              }
+            }
+          GQL
+        end
+        let(:expected_response) do
+          {
+            'data' => {
+              'updateBucket' => {
+                'bucket' => {
+                  'bucketType' => 'credit_card',
+                  'id' => bucket.id,
+                  'name' => 'First Bucket',
+                  'color' => '#ffffff'
+                },
+                'errors' => '{}'
+              }
+            }
+          }
+        end
+
+        it 'does not create bucket' do
+          expect { update_bucket_request.call }.to change { bucket.reload.color }.to('#ffffff')
+        end
+
+        it 'returns correct info' do
+          update_bucket_request.call
+          expect(response).to be_successful
+          expect(response_json).to match(expected_response)
+        end
+      end
+
+      context 'with description' do
+        let(:mutation) do
+          <<~GQL
+            mutation {
+              updateBucket(
+                id: #{bucket.id}
+                description: "test"
+              ) {
+                bucket {
+                  id
+                  name
+                  bucketType
+                  description
+                }
+                errors
+              }
+            }
+          GQL
+        end
+        let(:expected_response) do
+          {
+            'data' => {
+              'updateBucket' => {
+                'bucket' => {
+                  'bucketType' => 'credit_card',
+                  'id' => bucket.id,
+                  'name' => 'First Bucket',
+                  'description' => 'test'
+                },
+                'errors' => '{}'
+              }
+            }
+          }
+        end
+
+        it 'does not create bucket' do
+          expect { update_bucket_request.call }.to change { bucket.reload.description }.to('test')
+        end
+
+        it 'returns correct info' do
+          update_bucket_request.call
+          expect(response).to be_successful
+          expect(response_json).to match(expected_response)
+        end
+      end
     end
 
     context 'with failed update' do
-      context 'when expected enrollment fails' do
+      context 'when expected_enrollment fails' do
         let(:mutation) do
           <<~GQL
             mutation {
@@ -136,6 +274,165 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
                 'errors' => '{"expectedEnrollment":["должно содержать время"]}'
               }
             }
+          }
+        end
+
+        it 'does not create bucket' do
+          expect { update_bucket_request.call }.not_to change(Bucket, :count)
+        end
+
+        it 'returns correct info' do
+          update_bucket_request.call
+          expect(response).to be_successful
+          expect(response_json).to match(expected_response)
+        end
+      end
+
+      context 'when provider fails' do
+        let(:mutation) do
+          <<~GQL
+            mutation {
+              updateBucket(
+                id: #{bucket.id}
+                provider: []
+              ) {
+                bucket {
+                  id
+                  name
+                  bucketType
+                  provider
+                }
+                errors
+              }
+            }
+          GQL
+        end
+        let(:expected_response) do
+          {
+            'errors' => [
+              {
+                'extensions' => {
+                  'argumentName' => 'provider',
+                  'code' => 'argumentLiteralsIncompatible',
+                  'typeName' => 'Field'
+                },
+                'locations' => [
+                  {
+                    'column' => be,
+                    'line' => be
+                  }
+                ],
+                'message' =>
+                  "Argument 'provider' on Field 'updateBucket' has an invalid value ([]). Expected type 'String'.",
+                'path' => %w[mutation updateBucket provider]
+              }
+            ]
+          }
+        end
+
+        it 'does not create bucket' do
+          expect { update_bucket_request.call }.not_to change(Bucket, :count)
+        end
+
+        it 'returns correct info' do
+          update_bucket_request.call
+          expect(response).to be_successful
+          expect(response_json).to match(expected_response)
+        end
+      end
+
+      context 'when color fails' do
+        let(:mutation) do
+          <<~GQL
+            mutation {
+              updateBucket(
+                id: #{bucket.id}
+                color: []
+              ) {
+                bucket {
+                  id
+                  name
+                  bucketType
+                  color
+                }
+                errors
+              }
+            }
+          GQL
+        end
+        let(:expected_response) do
+          {
+            'errors' => [
+              {
+                'extensions' => {
+                  'argumentName' => 'color',
+                  'code' => 'argumentLiteralsIncompatible',
+                  'typeName' => 'Field'
+                },
+                'locations' => [
+                  {
+                    'column' => be,
+                    'line' => be
+                  }
+                ],
+                'message' =>
+                  "Argument 'color' on Field 'updateBucket' has an invalid value ([]). Expected type 'String'.",
+                'path' => %w[mutation updateBucket color]
+              }
+            ]
+          }
+        end
+
+        it 'does not create bucket' do
+          expect { update_bucket_request.call }.not_to change(Bucket, :count)
+        end
+
+        it 'returns correct info' do
+          update_bucket_request.call
+          expect(response).to be_successful
+          expect(response_json).to match(expected_response)
+        end
+      end
+
+      context 'when description fails' do
+        let(:mutation) do
+          <<~GQL
+            mutation {
+              updateBucket(
+                id: #{bucket.id}
+                description: []
+              ) {
+                bucket {
+                  id
+                  name
+                  bucketType
+                  description
+                }
+                errors
+              }
+            }
+          GQL
+        end
+        let(:expected_response) do
+          {
+            'errors' => [
+              {
+                'extensions' => {
+                  'argumentName' => 'description',
+                  'code' => 'argumentLiteralsIncompatible',
+                  'typeName' => 'Field'
+                },
+                'locations' => [
+                  {
+                    'column' => be,
+                    'line' => be
+                  }
+                ],
+                'message' =>
+                  "Argument 'description' on Field 'updateBucket' has an invalid value ([]). Expected type 'String'.",
+                'path' => %w[mutation updateBucket description]
+              }
+            ]
           }
         end
 
