@@ -29,7 +29,7 @@ RSpec.describe BucketContracts::OnCreationContract do
             {
               name: 'test',
               bucket_type: 'credit_card',
-              expected_enrollment: '2021-12-17',
+              expected_enrollment: 123,
               provider: 'test',
               color: '#ffffff',
               description: 'test description',
@@ -184,13 +184,13 @@ RSpec.describe BucketContracts::OnCreationContract do
       end
 
       context 'when expected_enrollment' do
-        context 'when not in date format' do
+        context 'when not in integer format' do
           let(:params) do
             {
               name: 'test',
               bucket_type: 'credit_card',
               user: user,
-              expected_enrollment: '5891-1951-051'
+              expected_enrollment: [123]
             }
           end
 
@@ -198,7 +198,7 @@ RSpec.describe BucketContracts::OnCreationContract do
             result = create_bucket_contract.call
             expect(result).not_to be_success
             expect(result.errors(full: true).to_h)
-              .to eq({ expected_enrollment: ['Ожидаемое зачисление должно содержать время'] })
+              .to eq({ expected_enrollment: ['Ожидаемое зачисление должно быть числом'] })
           }
         end
       end

@@ -29,7 +29,7 @@ RSpec.describe BucketContracts::OnUpdateContract do
               id: 0,
               name: 'test',
               bucket_type: 'credit_card',
-              expected_enrollment: '2021-12-17',
+              expected_enrollment: 2021,
               provider: 'test',
               color: '#ffffff',
               description: 'test description',
@@ -198,7 +198,7 @@ RSpec.describe BucketContracts::OnUpdateContract do
               name: 'test',
               bucket_type: 'credit_card',
               user: user,
-              expected_enrollment: '5891-1951-051'
+              expected_enrollment: [123]
             }
           end
 
@@ -206,7 +206,7 @@ RSpec.describe BucketContracts::OnUpdateContract do
             result = create_bucket_contract.call
             expect(result).not_to be_success
             expect(result.errors(full: true).to_h)
-              .to eq({ expected_enrollment: ['Ожидаемое зачисление должно содержать время'] })
+              .to eq({ expected_enrollment: ['Ожидаемое зачисление должно быть числом'] })
           }
         end
       end

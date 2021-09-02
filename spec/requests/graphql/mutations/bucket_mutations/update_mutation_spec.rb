@@ -67,7 +67,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
             mutation {
               updateBucket(
                 id: #{bucket.id}
-                expectedEnrollment: "2021-05-12"
+                expectedEnrollment: 123
               ) {
                 bucket {
                   id
@@ -88,7 +88,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
                   'bucketType' => 'credit_card',
                   'id' => bucket.id,
                   'name' => 'First Bucket',
-                  'expectedEnrollment' => 1_620_777_600
+                  'expectedEnrollment' => 123
                 },
                 'errors' => '{}'
               }
@@ -96,8 +96,8 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           }
         end
 
-        it 'does not create bucket' do
-          expect { update_bucket_request.call }.to change { bucket.reload.expected_enrollment }.to(1_620_777_600)
+        it 'updates bucket' do
+          expect { update_bucket_request.call }.to change { bucket.reload.expected_enrollment }.to(123)
         end
 
         it 'returns correct info' do
@@ -142,7 +142,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           }
         end
 
-        it 'does not create bucket' do
+        it 'updates bucket' do
           expect { update_bucket_request.call }.to change { bucket.reload.provider }.to('test')
         end
 
@@ -188,7 +188,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           }
         end
 
-        it 'does not create bucket' do
+        it 'updates bucket' do
           expect { update_bucket_request.call }.to change { bucket.reload.color }.to('#ffffff')
         end
 
@@ -234,7 +234,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           }
         end
 
-        it 'does not create bucket' do
+        it 'updates bucket' do
           expect { update_bucket_request.call }.to change { bucket.reload.description }.to('test')
         end
 
@@ -253,7 +253,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
             mutation {
               updateBucket(
                 id: #{bucket.id}
-                expectedEnrollment: "5891-1951-051"
+                expectedEnrollment: "string"
               ) {
                 bucket {
                   id
@@ -268,16 +268,28 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
         end
         let(:expected_response) do
           {
-            'data' => {
-              'updateBucket' => {
-                'bucket' => nil,
-                'errors' => '{"expectedEnrollment":["должно содержать время"]}'
+            'errors' => [
+              {
+                'extensions' => {
+                  'argumentName' => 'expectedEnrollment',
+                  'code' => 'argumentLiteralsIncompatible',
+                  'typeName' => 'Field'
+                },
+                'locations' => [
+                  {
+                    'column' => be,
+                    'line' => be
+                  }
+                ],
+                'message' => "Argument 'expectedEnrollment' on Field 'updateBucket' has an invalid " \
+                             "value (\"string\"). Expected type 'Int'.",
+                'path' => %w[mutation updateBucket expectedEnrollment]
               }
-            }
+            ]
           }
         end
 
-        it 'does not create bucket' do
+        it 'does not update bucket' do
           expect { update_bucket_request.call }.not_to change(Bucket, :count)
         end
 
@@ -330,7 +342,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           }
         end
 
-        it 'does not create bucket' do
+        it 'does not update bucket' do
           expect { update_bucket_request.call }.not_to change(Bucket, :count)
         end
 
@@ -383,7 +395,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           }
         end
 
-        it 'does not create bucket' do
+        it 'does not update bucket' do
           expect { update_bucket_request.call }.not_to change(Bucket, :count)
         end
 
@@ -436,7 +448,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
           }
         end
 
-        it 'does not create bucket' do
+        it 'does not update bucket' do
           expect { update_bucket_request.call }.not_to change(Bucket, :count)
         end
 

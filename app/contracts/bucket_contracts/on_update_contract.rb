@@ -9,7 +9,7 @@ module BucketContracts
       required(:id).filled(:integer)
       optional(:name).filled(:string)
       optional(:bucket_type).filled(:symbol, included_in?: Bucket.bucket_types.keys.map(&:to_sym))
-      optional(:expected_enrollment).maybe(:date_time)
+      optional(:expected_enrollment).maybe(:integer)
       optional(:provider).maybe(:string)
       optional(:color).maybe(:string)
       optional(:description).maybe(:string)

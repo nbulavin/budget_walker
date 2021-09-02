@@ -8,7 +8,7 @@ module Mutations
       argument :id, Integer, required: true
       argument :name, String, required: false
       argument :bucket_type, Types::Bucket::TypeEnum, required: false
-      argument :expected_enrollment, String, required: false
+      argument :expected_enrollment, Integer, required: false
       argument :provider, String, required: false
       argument :sort_order, Integer, required: false
       argument :color, String, required: false

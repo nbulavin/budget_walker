@@ -68,7 +68,7 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
               createBucket(
                 name: "test"
                 bucketType: credit_card
-                expectedEnrollment: "2021-05-12"
+                expectedEnrollment: 123
                 color: "#ffffff"
                 description: "test"
                 provider: "provider"
@@ -95,7 +95,7 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
                   'bucketType' => 'credit_card',
                   'id' => be,
                   'name' => 'test',
-                  'expectedEnrollment' => 1_620_777_600,
+                  'expectedEnrollment' => 123,
                   'color' => '#ffffff',
                   'description' => 'test',
                   'provider' => 'provider'
@@ -126,7 +126,7 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
               createBucket(
                 name: "test"
                 bucketType: credit_card
-                expectedEnrollment: "5891-1951-051"
+                expectedEnrollment: "string"
               ) {
                 bucket {
                   id
@@ -141,12 +141,24 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
         end
         let(:expected_response) do
           {
-            'data' => {
-              'createBucket' => {
-                'bucket' => nil,
-                'errors' => '{"expectedEnrollment":["должно содержать время"]}'
+            'errors' => [
+              {
+                'extensions' => {
+                  'argumentName' => 'expectedEnrollment',
+                  'code' => 'argumentLiteralsIncompatible',
+                  'typeName' => 'Field'
+                },
+                'locations' => [
+                  {
+                    'column' => be,
+                    'line' => be
+                  }
+                ],
+                'message' => "Argument 'expectedEnrollment' on Field 'createBucket' has an invalid " \
+                             "value (\"string\"). Expected type 'Int'.",
+                'path' => %w[mutation createBucket expectedEnrollment]
               }
-            }
+            ]
           }
         end
 

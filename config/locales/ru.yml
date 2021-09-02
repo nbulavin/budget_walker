@@ -50,7 +50,7 @@ ru:
             included_in?: "должен иметь одно из значений: credit_card, account, cash"
             key?: отсутствует
           expected_enrollment:
-            date_time?: должно содержать время
+            int?: должно быть числом
           name:
             filled?: должно быть заполнено
             key?: отсутствует
