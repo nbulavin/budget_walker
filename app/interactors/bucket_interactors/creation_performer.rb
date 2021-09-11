@@ -19,7 +19,7 @@ module BucketInteractors
     rescue InvalidPayloadError
       add_error(result.errors.to_h)
     rescue StandardError
-      add_error({ common: I18n.t('interactors.bucket_interactors.creation_performer.errors.main_error') })
+      add_error({ common: [I18n.t('interactors.bucket_interactors.creation_performer.errors.main_error')] })
     end
 
     private

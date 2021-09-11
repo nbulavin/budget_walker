@@ -25,7 +25,7 @@ module Mutations
     end
 
     def formatted_json(errors)
-      errors.transform_keys { |key| key.to_s.camelcase(:lower) }.to_json
+      errors.transform_keys { |key| key.to_s.camelcase(:lower) }
     end
   end
 end

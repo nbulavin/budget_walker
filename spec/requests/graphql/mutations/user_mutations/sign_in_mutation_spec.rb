@@ -31,7 +31,7 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
       end
       let(:expected_response) do
         {
-          'errors' => [],
+          'errors' => {},
           'token' => 'test',
           'me' => {
             'email' => 'test@email.com',
@@ -67,7 +67,7 @@ RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
       end
       let(:expected_response) do
         {
-          'errors' => ['Упс! Проверьте email и пароль и попробуйте снова.'],
+          'errors' => { 'common' => ['Упс! Проверьте email и пароль и попробуйте снова.'] },
           'me' => nil,
           'token' => nil
         }

@@ -43,7 +43,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
                   'id' => be,
                   'name' => 'test name'
                 },
-                'errors' => '{}'
+                'errors' => {}
               }
             }
           }
@@ -90,7 +90,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
                   'name' => 'First Bucket',
                   'expectedEnrollment' => 123
                 },
-                'errors' => '{}'
+                'errors' => {}
               }
             }
           }
@@ -136,7 +136,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
                   'name' => 'First Bucket',
                   'provider' => 'test'
                 },
-                'errors' => '{}'
+                'errors' => {}
               }
             }
           }
@@ -182,7 +182,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
                   'name' => 'First Bucket',
                   'color' => '#ffffff'
                 },
-                'errors' => '{}'
+                'errors' => {}
               }
             }
           }
@@ -228,7 +228,7 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
                   'name' => 'First Bucket',
                   'description' => 'test'
                 },
-                'errors' => '{}'
+                'errors' => {}
               }
             }
           }
@@ -483,7 +483,9 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
             'data' => {
               'updateBucket' => {
                 'bucket' => nil,
-                'errors' => '{"common":"Упс! Не удалось обновить запись. Проверьте данные и попробуйте снова."}'
+                'errors' => {
+                  'common' => ['Упс! Не удалось обновить запись. Проверьте данные и попробуйте снова.']
+                }
               }
             }
           }
@@ -544,7 +546,10 @@ RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
             ],
             'path' => [
               'updateBucket'
-            ]
+            ],
+            'extensions' => {
+              'code' => 'unauthorized'
+            }
           }
         ]
       }

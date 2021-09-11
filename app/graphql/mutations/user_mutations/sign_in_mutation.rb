@@ -9,14 +9,14 @@ module Mutations
       argument :password, String, required: true
 
       field :me, Types::UserType, null: true
-      field :errors, [String], null: false
       field :token, String, null: true
+      field :errors, GraphQL::Types::JSON, null: true
 
-      def resolve(email:, password:)
-        result = UserInteractors::Authorization::SignInPerformer.call(email: email, password: password)
+      def resolve(**args)
+        result = UserInteractors::Authorization::SignInPerformer.call(payload: args)
 
         {
-          errors: result.errors,
+          errors: formatted_json(result.errors),
           me: result.me,
           token: result.token
         }

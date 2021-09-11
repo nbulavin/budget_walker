@@ -40,6 +40,8 @@ ru:
       description: Описание
       provider: Провайдер
       color: Цвет
+      email: Почтовый ящик
+      password: Пароль
     errors:
       bucket_validation:
         rules:
@@ -64,6 +66,16 @@ ru:
             str?: должен быть текстом
           color:
             str?: должен быть текстом
+      user_validation:
+        rules:
+          email:
+            filled?: должен быть заполнен
+            key?: отсутствует
+            incorrect_format: имеет неправильный формат
+          password:
+            filled?: должен быть заполнен
+            key?: отсутствует
+            too_short: должен быть не короче 4 символов
   graphql:
     common:
       errors:

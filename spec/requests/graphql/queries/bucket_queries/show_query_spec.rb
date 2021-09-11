@@ -99,7 +99,10 @@ RSpec.describe Queries::BucketQueries::ShowQuery, type: :request do
               ],
               'path' => [
                 'getBucketDetails'
-              ]
+              ],
+              'extensions' => {
+                'code' => 'unauthorized'
+              }
             }
           ]
         }

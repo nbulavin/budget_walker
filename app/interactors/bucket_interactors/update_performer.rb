@@ -20,9 +20,9 @@ module BucketInteractors
     rescue InvalidPayloadError
       add_error(result.errors.to_h)
     rescue ActiveRecord::RecordNotFound
-      add_error({ common: I18n.t('interactors.bucket_interactors.update_performer.errors.record_not_found') })
+      add_error({ common: [I18n.t('interactors.bucket_interactors.update_performer.errors.record_not_found')] })
     rescue StandardError
-      add_error({ common: I18n.t('interactors.bucket_interactors.update_performer.errors.main_error') })
+      add_error({ common: [I18n.t('interactors.bucket_interactors.update_performer.errors.main_error')] })
     end
 
     private

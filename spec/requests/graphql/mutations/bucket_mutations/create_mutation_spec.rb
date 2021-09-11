@@ -43,7 +43,7 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
                     'id' => be,
                     'name' => 'test name'
                   },
-                  'errors' => '{}'
+                  'errors' => {}
                 }
               }
             }
@@ -100,7 +100,7 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
                   'description' => 'test',
                   'provider' => 'provider'
                 },
-                'errors' => '{}'
+                'errors' => {}
               }
             }
           }
@@ -358,7 +358,9 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
             'data' => {
               'createBucket' => {
                 'bucket' => nil,
-                'errors' => '{"common":"Упс! Не удалось создать запись. Проверьте данные и попробуйте снова."}'
+                'errors' => {
+                  'common' => ['Упс! Не удалось создать запись. Проверьте данные и попробуйте снова.']
+                }
               }
             }
           }
@@ -418,7 +420,10 @@ RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
             ],
             'path' => [
               'createBucket'
-            ]
+            ],
+            'extensions' => {
+              'code' => 'unauthorized'
+            }
           }
         ]
       }
