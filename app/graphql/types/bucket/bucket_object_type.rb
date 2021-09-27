@@ -2,7 +2,7 @@
 
 module Types
   module Bucket
-    class ObjectType < Types::BaseObject
+    class BucketObjectType < Types::BaseObject
       field :id, Integer, null: false
       field :name, String, null: false
       field :expected_enrollment, Integer, null: true

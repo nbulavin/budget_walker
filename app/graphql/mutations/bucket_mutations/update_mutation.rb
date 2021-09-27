@@ -14,7 +14,7 @@ module Mutations
       argument :color, String, required: false
       argument :description, String, required: false
 
-      field :bucket, Types::Bucket::ObjectType, null: true
+      field :bucket, Types::Bucket::BucketObjectType, null: true
       field :errors, GraphQL::Types::JSON, null: true
 
       def resolve(**args)

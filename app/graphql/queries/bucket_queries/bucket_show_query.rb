@@ -2,12 +2,12 @@
 
 module Queries
   module BucketQueries
-    class ShowQuery < Queries::BaseQuery
+    class BucketShowQuery < Queries::BaseQuery
       description 'Returns info about bucket available for user'
 
       argument :id, Integer, required: true
 
-      type Types::Bucket::ObjectType, null: true
+      type Types::Bucket::BucketObjectType, null: true
 
       def resolve(id:)
         raise_unauthorized_error unless authorized_user?

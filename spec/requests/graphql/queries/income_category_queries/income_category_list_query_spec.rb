@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
-RSpec.describe Queries::BucketQueries::BucketShowQuery, type: :request do
+RSpec.describe Queries::IncomeCategoryQueries::IncomeCategoryListQuery, type: :request do
   describe 'me' do
     subject(:graphql_test_request) { -> { post '/graphql', params: { query: query }, headers: headers } }
 
     let(:query) do
       <<~GQL
         query {
-          getBucketDetails(
-            id: #{bucket_id}
-          ) {
-            id
-            name
-            bucketType
+          getIncomeCategoryList {
+            list {
+              id
+              name
+              expectedRevenue
+            }
+            totalCount
           }
         }
       GQL
@@ -27,15 +28,19 @@ RSpec.describe Queries::BucketQueries::BucketShowQuery, type: :request do
       let(:headers) { { 'Authorization' => user.authorization_token } }
 
       context 'with buckets in database' do
-        let!(:first_bucket) { create :bucket, bucket_type: 0, user: user }
-        let(:bucket_id) { first_bucket.id }
+        let!(:first_category) { create :income_category, user: user }
         let(:expected_buckets_list) do
           {
             'data' => {
-              'getBucketDetails' => {
-                'bucketType' => 'credit_card',
-                'id' => first_bucket.id,
-                'name' => 'First Bucket'
+              'getIncomeCategoryList' => {
+                'totalCount' => 1,
+                'list' => [
+                  {
+                    'id' => first_category.id,
+                    'name' => 'FirstCategory',
+                    'expectedRevenue' => 123
+                  }
+                ]
               }
             }
           }
@@ -49,26 +54,14 @@ RSpec.describe Queries::BucketQueries::BucketShowQuery, type: :request do
       end
 
       context 'without buckets in database' do
-        let(:bucket_id) { 0 }
         let(:expected_buckets_list) do
           {
             'data' => {
-              'getBucketDetails' => nil
-            },
-            'errors' => [
-              {
-                'locations' => [
-                  {
-                    'column' => be,
-                    'line' => be
-                  }
-                ],
-                'message' => 'Упс! Мы не нашли то, что вы искали. Проверьте правильность и повторите запрос',
-                'path' => [
-                  'getBucketDetails'
-                ]
+              'getIncomeCategoryList' => {
+                'totalCount' => 0,
+                'list' => []
               }
-            ]
+            }
           }
         end
 
@@ -81,12 +74,11 @@ RSpec.describe Queries::BucketQueries::BucketShowQuery, type: :request do
     end
 
     context 'with not logged in user' do
-      let(:bucket_id) { 0 }
       let(:headers) { {} }
       let(:expected_response) do
         {
           'data' => {
-            'getBucketDetails' => nil
+            'getIncomeCategoryList' => nil
           },
           'errors' => [
             {
@@ -98,7 +90,7 @@ RSpec.describe Queries::BucketQueries::BucketShowQuery, type: :request do
                 }
               ],
               'path' => [
-                'getBucketDetails'
+                'getIncomeCategoryList'
               ],
               'extensions' => {
                 'code' => 'unauthorized'
