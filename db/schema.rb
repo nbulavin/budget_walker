@@ -38,8 +38,6 @@ ActiveRecord::Schema.define(version: 2021_08_23_173043) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
-    t.bigint "bucket_id"
-    t.index ["bucket_id"], name: "index_expense_categories_on_bucket_id"
     t.index ["user_id"], name: "index_expense_categories_on_user_id"
   end
 
@@ -49,8 +47,6 @@ ActiveRecord::Schema.define(version: 2021_08_23_173043) do
     t.integer "expected_revenue"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "bucket_id"
-    t.index ["bucket_id"], name: "index_income_categories_on_bucket_id"
     t.index ["user_id"], name: "index_income_categories_on_user_id"
   end
 
@@ -76,9 +72,7 @@ ActiveRecord::Schema.define(version: 2021_08_23_173043) do
   end
 
   add_foreign_key "buckets", "users"
-  add_foreign_key "expense_categories", "buckets"
   add_foreign_key "expense_categories", "users"
-  add_foreign_key "income_categories", "buckets"
   add_foreign_key "income_categories", "users"
   add_foreign_key "savings", "users"
 end
