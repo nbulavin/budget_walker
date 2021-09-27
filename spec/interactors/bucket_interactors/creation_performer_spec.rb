@@ -86,7 +86,7 @@ RSpec.describe BucketInteractors::CreationPerformer do
           expect(result.success?).to eq(false)
           expect(result.bucket).to be_nil
           expect(result.errors)
-            .to match({ common: 'Упс! Не удалось создать запись. Проверьте данные и попробуйте снова.' })
+            .to match({ common: ['Упс! Не удалось создать запись. Проверьте данные и попробуйте снова.'] })
         end
       end
     end

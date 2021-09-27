@@ -29,7 +29,8 @@ module BucketInteractors
     end
 
     def create_bucket(formatted_payload)
-      Bucket.create!(formatted_payload)
+      new_sort_order = BucketServices::SortOrderPreparer.new(formatted_payload[:user]).call
+      Bucket.create!(formatted_payload.merge(sort_order: new_sort_order))
     end
 
     def add_error(error_hash)

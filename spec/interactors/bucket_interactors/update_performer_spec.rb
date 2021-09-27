@@ -96,7 +96,7 @@ RSpec.describe BucketInteractors::UpdatePerformer do
               expect(result.success?).to eq(false)
               expect(result.bucket).to be_nil
               expect(result.errors)
-                .to match({ common: 'Упс! Не удалось обновить запись. Проверьте данные и попробуйте снова.' })
+                .to match({ common: ['Упс! Не удалось обновить запись. Проверьте данные и попробуйте снова.'] })
             end
           end
         end
@@ -122,7 +122,7 @@ RSpec.describe BucketInteractors::UpdatePerformer do
             expect(result.success?).to eq(false)
             expect(result.bucket).to be_nil
             expect(result.errors)
-              .to match({ common: 'Упс! Запись не найдена. Проверьте данные и попробуйте снова.' })
+              .to match({ common: ['Упс! Запись не найдена. Проверьте данные и попробуйте снова.'] })
           end
         end
       end
@@ -148,7 +148,7 @@ RSpec.describe BucketInteractors::UpdatePerformer do
           expect(result.success?).to eq(false)
           expect(result.bucket).to be_nil
           expect(result.errors)
-            .to match({ common: 'Упс! Запись не найдена. Проверьте данные и попробуйте снова.' })
+            .to match({ common: ['Упс! Запись не найдена. Проверьте данные и попробуйте снова.'] })
         end
       end
     end
