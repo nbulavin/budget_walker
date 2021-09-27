@@ -2,7 +2,6 @@
 
 module BucketServices
   class SortOrderPreparer
-
     # @param [User] user
     def initialize(user)
       @user = user

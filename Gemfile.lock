@@ -198,6 +198,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.8.0)
       parser (>= 3.0.1.1)
+    rubocop-graphql (0.10.2)
+      rubocop (>= 0.87, < 2)
     rubocop-rails (2.11.3)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -241,6 +243,7 @@ DEPENDENCIES
   rails (~> 6.1.4)
   rspec-rails (~> 5.0)
   rubocop
+  rubocop-graphql
   rubocop-rails
   rubocop-rspec
   tzinfo-data

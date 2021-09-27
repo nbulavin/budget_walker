@@ -5,13 +5,13 @@ module Mutations
     class CreateMutation < Mutations::BaseMutation
       null true
 
-      argument :name, String, required: true
       argument :bucket_type, Types::Bucket::TypeEnum, required: true
-      argument :expected_enrollment, Integer, required: false
-      argument :provider, String, required: false
-      argument :sort_order, Integer, required: false
       argument :color, String, required: false
       argument :description, String, required: false
+      argument :expected_enrollment, Integer, required: false
+      argument :name, String, required: true
+      argument :provider, String, required: false
+      argument :sort_order, Integer, required: false
 
       field :bucket, Types::Bucket::BucketObjectType, null: true
       field :errors, GraphQL::Types::JSON, null: true

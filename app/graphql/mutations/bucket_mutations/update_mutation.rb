@@ -5,14 +5,14 @@ module Mutations
     class UpdateMutation < Mutations::BaseMutation
       null true
 
-      argument :id, Integer, required: true
-      argument :name, String, required: false
       argument :bucket_type, Types::Bucket::TypeEnum, required: false
-      argument :expected_enrollment, Integer, required: false
-      argument :provider, String, required: false
-      argument :sort_order, Integer, required: false
       argument :color, String, required: false
       argument :description, String, required: false
+      argument :expected_enrollment, Integer, required: false
+      argument :id, Integer, required: true
+      argument :name, String, required: false
+      argument :provider, String, required: false
+      argument :sort_order, Integer, required: false
 
       field :bucket, Types::Bucket::BucketObjectType, null: true
       field :errors, GraphQL::Types::JSON, null: true

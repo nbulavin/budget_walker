@@ -1,6 +1,7 @@
 require:
   - rubocop-rspec
   - rubocop-rails
+  - rubocop-graphql
 
 AllCops:
   NewCops: enable
@@ -25,3 +26,12 @@ RSpec/MultipleMemoizedHelpers:
   Enabled: false
 RSpec/AnyInstance:
   Enabled: false
+
+GraphQL/ArgumentDescription:
+  Enabled: false
+GraphQL/FieldDescription:
+  Enabled: false
+GraphQL/ObjectDescription:
+  Enabled: false
+GraphQL/ExtractInputType:
+  MaxArguments: 10

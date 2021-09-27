@@ -50,5 +50,6 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'rubocop', require: false
+gem 'rubocop-graphql', require: false
 gem 'rubocop-rails', require: false
 gem 'rubocop-rspec', require: false
