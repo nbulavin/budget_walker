@@ -33,15 +33,16 @@ ru:
   dry_validation:
     rules:
       bucket_type: Тип счета
+      color: Цвет
+      description: Описание
+      email: Почтовый ящик
       expected_enrollment: Ожидаемое зачисление
+      expected_revenue: Ожидаемый доход
+      id: Айди
       name: Название
       user: Пользователь
-      id: Айди
-      description: Описание
-      provider: Провайдер
-      color: Цвет
-      email: Почтовый ящик
       password: Пароль
+      provider: Провайдер
     errors:
       bucket_validation:
         rules:
@@ -66,6 +67,20 @@ ru:
             str?: должен быть текстом
           color:
             str?: должен быть текстом
+      income_category_validation:
+        rules:
+          id:
+            filled?: должен быть заполнен
+            key?: отсутствует
+          expected_revenue:
+            int?: должен быть числом
+          name:
+            filled?: должно быть заполнено
+            key?: отсутствует
+          user:
+            filled?: должен быть заполнен
+            type?: должен быть типом User
+            key?: отсутствует
       user_validation:
         rules:
           email:
@@ -90,6 +105,10 @@ ru:
         errors:
           main_error: Упс! Не удалось обновить запись. Проверьте данные и попробуйте снова.
           record_not_found: Упс! Запись не найдена. Проверьте данные и попробуйте снова.
+    income_category_interactors:
+      creation_performer:
+        errors:
+          main_error: Упс! Не удалось создать запись. Проверьте данные и попробуйте снова.
     user_interactors:
       authorization:
         sign_in_performer:

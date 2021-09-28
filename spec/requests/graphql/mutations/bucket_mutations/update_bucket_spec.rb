@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Mutations::BucketMutations::UpdateMutation, type: :request do
+RSpec.describe Mutations::BucketMutations::UpdateBucket, type: :request do
   subject(:update_bucket_request) { -> { post '/graphql', params: { query: mutation }, headers: headers } }
 
   context 'with logged in user' do

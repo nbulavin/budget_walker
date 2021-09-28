@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 module BucketInteractors
-  class UpdatePerformer
+  class UpdatePerformer < ApplicationInteractor
     class InvalidPayloadError < StandardError
     end
-
-    include Interactor
 
     before do
       context.errors = {}

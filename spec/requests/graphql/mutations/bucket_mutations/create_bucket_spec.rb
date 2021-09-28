@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Mutations::BucketMutations::CreateMutation, type: :request do
+RSpec.describe Mutations::BucketMutations::CreateBucket, type: :request do
   subject(:create_bucket_request) { -> { post '/graphql', params: { query: mutation }, headers: headers } }
 
   context 'with logged in user' do

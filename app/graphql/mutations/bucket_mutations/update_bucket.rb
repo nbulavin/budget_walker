@@ -2,16 +2,18 @@
 
 module Mutations
   module BucketMutations
-    class CreateMutation < Mutations::BaseMutation
+    class UpdateBucket < Mutations::BaseMutation
       null true
 
-      argument :bucket_type, Types::Bucket::TypeEnum, required: true
+      description 'Updates bucket'
+
+      argument :bucket_type, Types::Bucket::TypeEnum, required: false
       argument :color, String, required: false
       argument :description, String, required: false
       argument :expected_enrollment, Integer, required: false
-      argument :name, String, required: true
+      argument :id, Integer, required: true
+      argument :name, String, required: false
       argument :provider, String, required: false
-      argument :sort_order, Integer, required: false
 
       field :bucket, Types::Bucket::BucketObjectType, null: true
       field :errors, GraphQL::Types::JSON, null: true
@@ -19,7 +21,7 @@ module Mutations
       def resolve(**args)
         raise_unauthorized_error unless authorized_user?
 
-        result = BucketInteractors::CreationPerformer.call(payload: prepare_arguments(args))
+        result = BucketInteractors::UpdatePerformer.call(payload: prepare_arguments(args))
 
         {
           errors: formatted_json(result.errors),

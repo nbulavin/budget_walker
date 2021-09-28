@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module BucketInteractors
+module IncomeCategoryInteractors
   class CreationPerformer < ApplicationInteractor
     class InvalidPayloadError < StandardError
     end
@@ -13,22 +13,21 @@ module BucketInteractors
       result = prepare_payload
       raise InvalidPayloadError unless result.success?
 
-      context.bucket = create_bucket(result.to_h)
+      context.income_category = create_income_category(result.to_h)
     rescue InvalidPayloadError
       add_error(result.errors.to_h)
     rescue StandardError
-      add_error({ common: [I18n.t('interactors.bucket_interactors.creation_performer.errors.main_error')] })
+      add_error({ common: [I18n.t('interactors.income_category_interactors.creation_performer.errors.main_error')] })
     end
 
     private
 
     def prepare_payload
-      BucketContracts::OnCreationContract.new.call(**context.payload)
+      IncomeCategoryContracts::OnCreationContract.new.call(**context.payload)
     end
 
-    def create_bucket(formatted_payload)
-      new_sort_order = BucketServices::SortOrderPreparer.new(formatted_payload[:user]).call
-      Bucket.create!(formatted_payload.merge(sort_order: new_sort_order))
+    def create_income_category(formatted_payload)
+      IncomeCategory.create!(formatted_payload)
     end
 
     def add_error(error_hash)

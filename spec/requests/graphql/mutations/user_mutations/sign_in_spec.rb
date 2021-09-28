@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Mutations::UserMutations::SignInMutation, type: :request do
+RSpec.describe Mutations::UserMutations::SignIn, type: :request do
   subject(:sign_in_request) { -> { post '/graphql', params: { query: mutation } } }
 
   let!(:user) do
