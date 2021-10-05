@@ -5,5 +5,9 @@ module Support
     def response_json
       JSON.parse(response.body)
     end
+
+    def response_json_object
+      JSON.parse(response.body, object_class: OpenStruct)
+    end
   end
 end

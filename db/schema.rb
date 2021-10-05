@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_23_173043) do
+ActiveRecord::Schema.define(version: 2021_10_05_161418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_08_23_173043) do
     t.integer "expected_revenue"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "actual_revenue"
     t.index ["user_id"], name: "index_income_categories_on_user_id"
   end
 
